@@ -8,7 +8,7 @@ import AddFolder from './Components/AddFolder';
 import Note from './Components/Note';
 import Folder from './Components/Folder';
 import FolderName from './Components/FolderName';
-//import './App.css';
+import './App.css';
 import NotefulContext from './Components/NotefulContext';
 
 
@@ -94,8 +94,14 @@ export default class App extends Component {
     }
 
     return (
-      <div>
+      <div className='app'>
     <NotefulContext.Provider value={contextValue}>
+      
+    
+      <header>
+        <Header/>
+      </header>
+      <main>
       <Switch>
         <Route
           path='/folder/:folderID'
@@ -110,7 +116,7 @@ export default class App extends Component {
           render={() => <SidebarNav folders={this.state.folders} />}
         />      
       </Switch>
-        <Header/>
+        <div className='note-container'>
           <Route
             exact
             path='/'
@@ -137,6 +143,9 @@ export default class App extends Component {
             path='/addfolder'
             component={AddFolder}
           />
+        </div>
+          
+          </main>
         </NotefulContext.Provider>
       </div>
     )

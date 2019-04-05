@@ -16,7 +16,7 @@ export default function DeleteFolder(props) {
   return (
       <NotefulContext.Consumer>
       {(context) => (
-          <button
+          <button className='delete-folder-btn'
           onClick={() => {
             deleteFolderRequest(
               props.folder,

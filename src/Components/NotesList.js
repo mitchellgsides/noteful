@@ -7,11 +7,11 @@ export default function NotesList(props) {
     const notes = props.notes.map(n => 
       <NoteItem name={n.name} key={n.id} modified={n.modified} id={n.id} />)
   return (
-    <div>
-      <ul>
+    <div className='notes-list'>
+      <ul className='nav-list-notes'>
         { notes }
-        <li><Link to='/addnote'>Add Note</Link></li>
       </ul>
+      <button><Link to='/addnote'>+ Note</Link></button>
     </div>
   )
 }

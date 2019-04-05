@@ -14,12 +14,11 @@ export default function DeleteNote(props) {
   return (
       <NotefulContext.Consumer>
           {(context) => 
-          <button
+          <button className='button'
           onClick={() => {
             deleteNoteRequest(
               props.note,
-              context.delNote(props.note),
-              window.location.replace('/')
+              context.delNote(props.note)
             )
           }}
         >

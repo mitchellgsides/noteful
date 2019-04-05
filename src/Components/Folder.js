@@ -1,7 +1,7 @@
 import React from 'react';
 import NotesList from './NotesList';
+import DeleteFolder from './DeleteFolder';
 import NotefulContext from './NotefulContext';
-import DeleteFolder from './DeleteFolder'
 
 export default class Folder extends React.Component {
    static contextType = NotefulContext; 
@@ -14,7 +14,7 @@ export default class Folder extends React.Component {
     return (
       <>
         <NotesList notes={folderNotes} />
-        <DeleteFolder folder={this.props.match.params.folderID} />
+        <DeleteFolder folder={thisFolder} />
       </>
     )
   }

@@ -76,18 +76,17 @@ class AddFolder extends Component {
   render () {
     return (
      <form className="registration" onSubmit={e => this.handleSubmit(e)}>
-       <h2>Add Note</h2>
-       <div className="registration__hint">* required field</div>  
+       <h2>Add Folder</h2>
 
        <div className="form-group">
-         <label htmlFor="name">Name *</label>
+         <label htmlFor="name">Name: {' '}</label>
          <input type="text" className="registration__control" 
            name="name" id="name" onChange={e => this.updateValue(e.target.value, e.target.name)}/> 
        </div>
        <ValidationError hasError={!this.state.valueValid} message={this.state.validationMessages.name}/>
 
        <div className="registration__button__group">
-        <button type="reset" className="registration__button">
+        <button type="reset" className="registration__button" onClick={e => window.location.replace('/')}>
             Cancel
         </button>
         <button type="submit" className="registration__button" disabled={!this.state.formValid}>

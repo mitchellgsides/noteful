@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class SidebarNav extends React.Component {
 
@@ -11,14 +12,18 @@ export default class SidebarNav extends React.Component {
     )
 
   return (
-    <div>
-      <ul>
+    <div className='sidebar-nav'>
+      <ul className='nav-list-folders'>
         { folders }
-        <li><NavLink to='/addfolder'>Add Folder</NavLink></li>
+        <Link to='/addfolder'><li><button className='circle-button add-folder'>+ Folder</button></li></Link>
       </ul>
 
     </div>
   )
 }
 
+}
+
+SidebarNav.propTypes = {
+  folder: PropTypes.array
 }

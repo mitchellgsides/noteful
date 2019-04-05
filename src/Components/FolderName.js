@@ -8,7 +8,10 @@ export default class FolderName extends React.Component{
     const folderName = this.context.folders.filter(f => f.id === `${folderID}`).map(f => f.name)[0];
 
     return (
-        <h1>{ folderName }</h1>
+        <div className='sidebar-nav-title'>
+            <h1>{ folderName }</h1>
+        </div>
+        
         )
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import NotefulContext from './NotefulContext';
+import { Link } from 'react-router-dom';
 import NoteItem from './NoteItem';
 
 export default class Note extends React.Component {
@@ -15,7 +16,7 @@ export default class Note extends React.Component {
     return (
       <div>
         { noteContent }
-        <button onClick={this.props.history.goBack}>{'Back <'}</button>
+        <Link to='/'><button>Back</button></Link>
       </div>
     )
   }

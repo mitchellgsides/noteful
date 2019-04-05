@@ -5,9 +5,7 @@ import uuid from 'uuid';
 
 class AddNote extends Component {
   static contextType = NotefulContext;
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       name: '',
       id: '',
       modified: '',
@@ -19,7 +17,7 @@ class AddNote extends Component {
         name: '',
       }
     }
-  }
+  
 
   updateValue (name, value) {
     this.setState({
@@ -33,12 +31,6 @@ class AddNote extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { name, folder, content, id, modified } = this.state;
-        console.log('Name: ', name);
-        console.log('Folder: ', folder);
-        console.log('Content: ', content);
-        console.log('id: ' + id);
-        console.log('modified: ' + modified);
-
         fetch('http://localhost:9090/notes/', {
       method: 'POST',
       headers: {
@@ -90,17 +82,16 @@ class AddNote extends Component {
     return (
      <form className="registration" onSubmit={e => this.handleSubmit(e)}>
        <h2>Add Note</h2>
-       <div className="registration__hint">* required field</div>  
-
+      
        <div className="form-group">
          <label htmlFor="name">Name *</label>
-         <input type="text" className="registration__control" 
+         <input type="text" className="registration__control" placeholder='Unicorns'
            name="name" id="name" onChange={e => this.updateValue(e.target.value, e.target.name)}/> 
        </div>
 
        <div className="form-group">
          <label htmlFor="folder">Folder *</label>
-         <select className="registration__control" defaultValue='Choose a folder...' required
+         <select className="registration__control" defaultValue='Choose a folder...' required placeholder='Important'
            name="folder" id="folder" onChange={e => this.updateValue(e.target.value, e.target.name)}>
            <option>Choose a folder...</option>
              {this.context.folders.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
@@ -114,8 +105,10 @@ class AddNote extends Component {
          <ValidationError hasError={!this.state.valueValid} message={this.state.validationMessages.name}/>  
        </div>
 
+       <div className='form-group'>* = Required</div>
+
        <div className="registration__button__group">
-        <button type="reset" className="registration__button">
+        <button type="reset" className="registration__button" onClick={e => {window.location.replace('/')}}>
             Cancel
         </button>
         <button type="submit" className="registration__button" disabled={!this.state.formValid}>

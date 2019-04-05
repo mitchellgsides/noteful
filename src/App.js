@@ -18,15 +18,12 @@ export default class App extends Component {
     notes: [],
     addNote: () => {},
     addFolder: () => {},
-    delNote: () => this.handleDeleteNote,
+    delNote: () => {},
     delFolder: () => {}
   }
     
 
     componentDidMount() {
-      const contextValue = {
-      delNote: this.handleDeleteNote
-    }
     const folderUrl = 'http://localhost:9090/folders';
     const notesUrl = 'http://localhost:9090/notes';
     fetch(folderUrl).then(res => {
@@ -66,22 +63,43 @@ export default class App extends Component {
   }
 
   handleDeleteNote = noteId => {
-    console.log(noteId);
-    
+    console.log(`${noteId} has been deleted.`);
+    const newNotes = this.state.notes.filter(n =>
+      n.id !== noteId);
+      this.setState({
+        notes: newNotes
+      })
   }
+
+  handleDeleteFolder = folderId => {
+    console.log(`${folderId} has been deleted.`);
+    const newFolders = this.state.folders.filter(f =>
+      f.id !== folderId);
+      this.setState({
+        folders: newFolders
+      })
+  }
+
 
   
 
 
   render() {
 
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      delNote: this.handleDeleteNote,
+      delFolder: this.handleDeleteFolder
+    }
+
     return (
       <div>
-    <NotefulContext.Provider value={this.state}>
+    <NotefulContext.Provider value={contextValue}>
       <Switch>
         <Route
           path='/folder/:folderID'
-          render={() => <SidebarNav folders={this.state.folders} deleteNote={this.deleteNote}/>}
+          render={() => <SidebarNav folders={this.state.folders} />}
         />
         <Route
           path='/note/:noteID'
@@ -89,7 +107,7 @@ export default class App extends Component {
         />
         <Route
           path='/'
-          render={() => <SidebarNav folders={this.state.folders} deleteNote={this.deleteNote} />}
+          render={() => <SidebarNav folders={this.state.folders} />}
         />      
       </Switch>
         <Header/>
@@ -97,7 +115,7 @@ export default class App extends Component {
             exact
             path='/'
             render={() =>
-            <NotesList notes={this.state.notes} deleteNote={this.deleteNote}/>}
+            <NotesList notes={this.state.notes} />}
           />
           <Route 
             exact
@@ -120,7 +138,6 @@ export default class App extends Component {
             component={AddFolder}
           />
         </NotefulContext.Provider>
-        
       </div>
     )
   }

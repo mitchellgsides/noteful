@@ -8,7 +8,7 @@ export default class Note extends React.Component {
     const note = this.props.match.params.noteID;
     const noteContent = this.context.notes.filter(n => n.name === note).map(n => 
       <div key={n.id}>
-      <NoteItem name={n.name} key={n.id} modified={n.modified}/>
+      <NoteItem id={n.id} name={n.name} key={n.id} modified={n.modified}/>
       <p>{n.content}</p>
       </div>);
     

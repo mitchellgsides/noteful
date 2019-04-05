@@ -3,7 +3,7 @@ import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
 import uuid from 'uuid';
 
-class AddNote extends Component {
+class AddFolder extends Component {
   static contextType = NotefulContext;
   constructor(props) {
     super(props);
@@ -98,4 +98,4 @@ class AddNote extends Component {
    )
  }
 }
-export default AddNote;
+export default AddFolder;

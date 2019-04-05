@@ -46,7 +46,7 @@ class AddNote extends Component {
       },
       body: JSON.stringify({
         name: name,
-        folder: folder,
+        folderId: folder,
         content: content,
         id: id,
         modified: modified

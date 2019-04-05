@@ -21,7 +21,7 @@ export default function DeleteFolder(props) {
             deleteFolderRequest(
               props.folder,
               context.delFolder(props.folder),
-              {/*window.location.replace('/')*/}
+              window.location.replace('/')
             )
           }}
         >

@@ -1,100 +1,106 @@
 * {
-    color: whitesmoke;
-    list-style-type: none;
-    text-decoration: none;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    max-width: 100%;
-    text-align: center;
+  color: whitesmoke;
+  list-style-type: none;
+  text-decoration: none;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: center;
 }
 
 head {
-    display: none;
+  display: none;
 }
 
 .active li {
-    background-color: rgb(49, 49, 49);
+  background-color: rgb(49, 49, 49);
 }
 
 header {
-    background-color: rgb(99, 0, 0);
-    padding-bottom: 50px;
+  background-color: rgb(99, 0, 0);
+  padding-bottom: 50px;
 }
 
-.app{
-    display: inline-block;
-    height: 100vh;
-    background-color: rgb(99, 0, 0);
+.app {
+  display: inline-block;
+  height: 100vh;
+  background-color: rgb(99, 0, 0);
 }
 
 .delete-folder-btn {
-    margin: auto;
+  margin: auto;
 }
 
-.sidebar-nav, .sidebar-nav-title {
-    background-color: rgb(99, 0, 0);
-    width: 200px;
+.sidebar-nav,
+.sidebar-nav-title {
+  background-color: rgb(99, 0, 0);
+  width: 200px;
 }
 
 .sidebar-nav-title {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 
 .form-group {
-    background-color: blue;
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    margin: auto;
-    padding: 10px;
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
 }
 
-input, select, textarea, option {
-    color: black;
+input,
+select,
+textarea,
+option {
+  color: black;
 }
 
 input::placeholder {
-    color: darkgrey;
+  color: darkgrey;
 }
 
-button, button a {
-    background-color: darkred;
-    width: 100px;
-    height: 50px;
-    border-radius: 5%;
-    margin: 5px;
-    text-align: center;
-    border: none;
+button,
+button a {
+  background-color: darkred;
+  width: 100px;
+  height: 50px;
+  border-radius: 5%;
+  margin: 5px;
+  text-align: center;
+  border: none;
 }
 
 header h1 {
-    width: 100vw;
-    background-color: rgb(99, 0, 0);
+  width: 100vw;
+  background-color: rgb(99, 0, 0);
 }
 
 main {
-    background-color: rgb(49, 49, 49);
-    display: flex;
+  background-color: rgb(49, 49, 49);
+  display: flex;
 }
 
 .note-container {
-    display: flex;
-    height: 80vh;
-    max-height: 800px;
-    width: 100%;
-    flex-direction: column;
-    overflow-y: scroll;
+  display: flex;
+  height: 80vh;
+  max-height: 800px;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
 }
-
 
 .note-item {
-    color: darkred;
-    margin: 10px;
-    border: 1px solid whitesmoke;
+  color: darkred;
+  margin: 10px;
+  border: 1px solid whitesmoke;
 }
 
-.note-item h3, .note-item button, .note-item p {
-    padding: 8px;
+.note-item h3,
+.note-item button,
+.note-item p {
+  padding: 8px;
 }

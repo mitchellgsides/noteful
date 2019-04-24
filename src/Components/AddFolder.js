@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import ValidationError from "./ValidationError";
 import NotefulContext from "./NotefulContext";
 import uuid from "uuid";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import config from "../config";
 
 class AddFolder extends Component {
   static contextType = NotefulContext;
@@ -33,16 +36,17 @@ class AddFolder extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { name, id } = this.state;
-    fetch("http://localhost:9090/folders/", {
+    fetch("http://localhost:8000/api/folders", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${config.API_KEY}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({
         id: id,
-        name: name
+        folder_name: name
       })
-    }).then(window.location.replace(`/folder/${id}`));
+    }).then(window.location.replace(`/folders/${id}`));
   }
 
   validateValue(fieldValue, fieldName) {
@@ -84,8 +88,8 @@ class AddFolder extends Component {
         <h2>Add Folder</h2>
 
         <div className="form-group">
-          <label htmlFor="name">Name: </label>
-          <input
+          <TextField
+            label="Name"
             type="text"
             className="registration__control"
             name="name"
@@ -99,20 +103,20 @@ class AddFolder extends Component {
         />
 
         <div className="registration__button__group">
-          <button
+          <Button
             type="reset"
             className="registration__button"
-            onClick={e => window.location.replace("/")}
+            onClick={this.props.history.goBack}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
             className="registration__button"
             disabled={!this.state.formValid}
           >
             Save
-          </button>
+          </Button>
         </div>
       </form>
     );

@@ -1,11 +1,14 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import NotefulContext from "./NotefulContext";
+import config from "../config";
 
 function deleteFolderRequest(folderId, callback, redirect) {
   console.log(folderId, "deleted");
-  fetch(`http://localhost:9090/folders/${folderId}`, {
+  fetch(`http://localhost:8000/api/folders/${folderId}`, {
     method: "DELETE",
     headers: {
+      Authorization: `Bearer ${config.API_KEY}`,
       "content-type": "application/json"
     }
   })
@@ -18,7 +21,7 @@ export default function DeleteFolder(props) {
   return (
     <NotefulContext.Consumer>
       {context => (
-        <button
+        <Button
           className="delete-folder-btn"
           onClick={() => {
             deleteFolderRequest(
@@ -29,7 +32,7 @@ export default function DeleteFolder(props) {
           }}
         >
           Delete Folder
-        </button>
+        </Button>
       )}
     </NotefulContext.Consumer>
   );

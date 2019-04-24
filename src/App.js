@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import Header from "./Components/Header";
+import { Route, Switch, Link } from "react-router-dom";
 import SidebarNav from "./Components/SidebarNav";
 import NotesList from "./Components/NotesList";
 import AddNote from "./Components/AddNote";
@@ -9,7 +8,26 @@ import Note from "./Components/Note";
 import Folder from "./Components/Folder";
 import FolderName from "./Components/FolderName";
 import "./App.css";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import styled from "styled-components";
 import NotefulContext from "./Components/NotefulContext";
+import { purple, green } from "@material-ui/core/colors";
+import UpdateNote from "./Components/UpdateNote";
+import config from "./config";
+
+const Header = styled.h1``;
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
+  palette: {
+    primary: purple,
+    secondary: green
+  },
+  status: {
+    danger: "orange"
+  }
+});
 
 export default class App extends Component {
   state = {
@@ -22,9 +40,13 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    const folderUrl = "http://localhost:9090/folders";
-    const notesUrl = "http://localhost:9090/notes";
-    fetch(folderUrl)
+    const folderUrl = "http://localhost:8000/api/folders";
+    const notesUrl = "http://localhost:8000/api/notes";
+    fetch(folderUrl, {
+      headers: {
+        Authorization: `Bearer ${config.API_KEY}`
+      }
+    })
       .then(res => {
         if (!res.ok) {
           throw new Error("Something went wrong, please try again later.");
@@ -90,35 +112,46 @@ export default class App extends Component {
 
     return (
       <div className="app">
-        <NotefulContext.Provider value={contextValue}>
-          <header>
-            <Header />
-          </header>
-          <main>
-            <Switch>
-              <Route
-                path="/folder/:folderID"
-                render={() => <SidebarNav folders={this.state.folders} />}
-              />
-              <Route path="/note/:noteID" component={FolderName} />
-              <Route
-                path="/"
-                render={() => <SidebarNav folders={this.state.folders} />}
-              />
-            </Switch>
-            <div className="note-container">
-              <Route
-                exact
-                path="/"
-                render={() => <NotesList notes={this.state.notes} />}
-              />
-              <Route exact path="/note/:noteID" component={Note} />
-              <Route exact path="/folder/:folderID" component={Folder} />
-              <Route exact path="/addnote" component={AddNote} />
-              <Route exact path="/addfolder" component={AddFolder} />
-            </div>
-          </main>
-        </NotefulContext.Provider>
+        <MuiThemeProvider theme={theme}>
+          <NotefulContext.Provider value={contextValue}>
+            <header>
+              <Link to="/">
+                <Header>Noteful</Header>
+              </Link>
+            </header>
+            <main>
+              <div className="nav-container">
+                <Switch>
+                  <Route
+                    path="/folders/:folderID"
+                    render={() => <SidebarNav folders={this.state.folders} />}
+                  />
+                  <Route path="/notes/:noteID" component={FolderName} />
+                  <Route
+                    path="/"
+                    render={() => <SidebarNav folders={this.state.folders} />}
+                  />
+                </Switch>
+              </div>
+              <div className="note-container">
+                <Route
+                  exact
+                  path="/"
+                  render={() => <NotesList notes={this.state.notes} />}
+                />
+                <Route exact path="/notes/:noteID" component={Note} />
+                <Route exact path="/folders/:folderID" component={Folder} />
+                <Route exact path="/addnote/" component={AddNote} />
+                <Route exact path="/addfolder" component={AddFolder} />
+                <Route
+                  exact
+                  path="/updatenote/:folderID/:noteID"
+                  component={UpdateNote}
+                />
+              </div>
+            </main>
+          </NotefulContext.Provider>
+        </MuiThemeProvider>
       </div>
     );
   }

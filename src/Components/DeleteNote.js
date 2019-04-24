@@ -1,10 +1,14 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import NotefulContext from "./NotefulContext";
+import config from "../config";
 
 function deleteNoteRequest(noteId, callback, redirect) {
-  console.log("api call to delete here", noteId);
-  fetch(`http://localhost:9090/notes/${noteId}`, {
-    method: "DELETE"
+  fetch(`http://localhost:8000/api/notes/${noteId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${config.API_KEY}`
+    }
   })
     .then(res => res)
     .then(callback)
@@ -15,14 +19,14 @@ export default function DeleteNote(props) {
   return (
     <NotefulContext.Consumer>
       {context => (
-        <button
+        <Button
           className="button"
           onClick={() => {
             deleteNoteRequest(props.note, context.delNote(props.note));
           }}
         >
           Delete Note
-        </button>
+        </Button>
       )}
     </NotefulContext.Consumer>
   );

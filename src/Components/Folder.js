@@ -8,7 +8,9 @@ export default class Folder extends React.Component {
   render() {
     const { notes } = this.context;
     const thisFolder = this.props.match.params.folderID;
-    const folderNotes = notes.filter(n => n.folderId === thisFolder);
+    const folderNotes = notes.filter(
+      n => n.folder_id.toString() === thisFolder.toString()
+    );
 
     return (
       <>

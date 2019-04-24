@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import ValidationError from "./ValidationError";
 import NotefulContext from "./NotefulContext";
-import uuid from "uuid";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import config from "../config";
 
 class AddNote extends Component {
   static contextType = NotefulContext;
   state = {
     name: "",
     id: "",
+    new: "",
     modified: "",
-    folderId: "",
+    folder_id: "",
     content: "",
     nameValid: false,
     formValid: false,
@@ -18,11 +24,20 @@ class AddNote extends Component {
     }
   };
 
+  handleChange = (name, value) => e => {
+    this.setState({ [name]: e.target.value }, () => {
+      this.validateValue(name, value);
+    });
+  };
+
+  handleSelect = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   updateValue(name, value) {
     this.setState(
       {
         [value]: name,
-        id: uuid.v4(),
         modified: new Date(Date.now()).toISOString()
       },
       () => {
@@ -33,20 +48,19 @@ class AddNote extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { name, folder, content, id, modified } = this.state;
-    fetch("http://localhost:9090/notes/", {
+    const { name, folder_id, content } = this.state;
+    fetch("http://localhost:8000/api/notes", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${config.API_KEY}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        name: name,
-        folderId: folder,
-        content: content,
-        id: id,
-        modified: modified
+        note_name: name,
+        folder_id: folder_id,
+        content: content
       })
-    }).then(window.location.replace(`/note/${name}`));
+    }).then(window.location.replace(`/folders/${folder_id}`));
   }
 
   validateValue(fieldValue, fieldName) {
@@ -87,46 +101,42 @@ class AddNote extends Component {
       <form className="registration" onSubmit={e => this.handleSubmit(e)}>
         <h2>Add Note</h2>
 
-        <div className="form-group">
-          <label htmlFor="name">Name *</label>
-          <input
-            type="text"
-            className="registration__control"
-            placeholder="Unicorns"
-            name="name"
-            id="name"
-            onChange={e => this.updateValue(e.target.value, e.target.name)}
-          />
-        </div>
+        <TextField
+          id="standard-name"
+          label="Name"
+          value={this.state.name}
+          onChange={this.handleChange("name")}
+          margin="normal"
+        />
 
         <div className="form-group">
-          <label htmlFor="folder">Folder *</label>
-          <select
+          <InputLabel htmlFor="Folder">Folder</InputLabel>
+          <Select
+            label="folder"
             className="registration__control"
-            defaultValue="Choose a folder..."
-            required
+            value={this.state.folder_id}
             placeholder="Important"
-            name="folder"
+            name="folder_id"
             id="folder"
-            onChange={e => this.updateValue(e.target.value, e.target.name)}
+            onChange={this.handleSelect}
           >
-            <option>Choose a folder...</option>
+            <MenuItem>Choose a folder...</MenuItem>
             {this.context.folders.map(f => (
-              <option key={f.id} value={f.id}>
-                {f.name}
-              </option>
+              <MenuItem key={f.id} value={f.id}>
+                {f.folder_name}
+              </MenuItem>
             ))}
-          </select>
+          </Select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="name">Note Content *</label>
-          <textarea
-            type="text"
-            className="registration__control"
+          <TextField
+            id="standard-content"
             name="content"
-            id="content"
-            onChange={e => this.updateValue(e.target.value, e.target.name)}
+            label="Content"
+            value={this.state.content}
+            onChange={this.handleChange("content")}
+            margin="normal"
           />
           <ValidationError
             hasError={!this.state.valueValid}
@@ -137,22 +147,21 @@ class AddNote extends Component {
         <div className="form-group">* = Required</div>
 
         <div className="registration__button__group">
-          <button
+          <Button
             type="reset"
             className="registration__button"
-            onClick={e => {
-              window.location.replace("/");
-            }}
+            onClick={this.props.history.goBack}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
+            color="secondary"
             type="submit"
             className="registration__button"
             disabled={!this.state.formValid}
           >
             Save
-          </button>
+          </Button>
         </div>
       </form>
     );

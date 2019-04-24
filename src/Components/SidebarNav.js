@@ -1,22 +1,36 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+//import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 export default class SidebarNav extends React.Component {
+  state = {
+    navOpen: true
+  };
+
+  handleNav = e => {
+    this.setState({
+      navOpen: !this.state.navOpen
+    });
+  };
+
   render() {
     const folders = this.props.folders.map(f => (
-      <NavLink to={`/folder/${f.id}`} key={f.id}>
-        <li key={f.id}>{f.name}</li>
+      <NavLink to={`/folders/${f.id}`} key={f.id}>
+        <li key={f.id}>{f.folder_name}</li>
       </NavLink>
     ));
-
+    const sidebarClass = this.state.navOpen ? " active-nav" : "";
+    const navButton = this.state.navOpen ? "<<" : ">>";
     return (
       <div className="sidebar-nav">
-        <ul className="nav-list-folders">
+        <Button onClick={this.handleNav}>{navButton}</Button>
+        <ul className={"nav-list-folders" + sidebarClass}>
           {folders}
           <Link to="/addfolder">
             <li>
-              <button className="circle-button add-folder">+ Folder</button>
+              <Button>+ Folder</Button>
             </li>
           </Link>
         </ul>
@@ -26,5 +40,6 @@ export default class SidebarNav extends React.Component {
 }
 
 SidebarNav.propTypes = {
-  folder: PropTypes.array
+  folder: PropTypes.array,
+  navOpen: PropTypes.bool
 };

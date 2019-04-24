@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "alias": "mitchellgsides-noteful-client",
   "name": "noteful-client",
   "routes": [
     {

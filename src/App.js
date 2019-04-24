@@ -40,6 +40,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    console.log(config.API_ENDPOINT);
     const folderUrl = `https://salty-sea-75049.herokuapp.com/api/folders`;
     const notesUrl = `${config.API_ENDPOINT}/api/notes`;
     fetch(folderUrl, {

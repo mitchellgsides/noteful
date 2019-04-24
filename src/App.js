@@ -40,8 +40,8 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    const folderUrl = "http://localhost:8000/api/folders";
-    const notesUrl = "http://localhost:8000/api/notes";
+    const folderUrl = `https://salty-sea-75049.herokuapp.com/api/folders`;
+    const notesUrl = `${config.API_ENDPOINT}/api/notes`;
     fetch(folderUrl, {
       headers: {
         Authorization: `Bearer ${config.API_KEY}`

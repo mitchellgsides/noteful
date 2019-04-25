@@ -14,6 +14,7 @@ import NotefulContext from "./Components/NotefulContext";
 import { purple, green } from "@material-ui/core/colors";
 import UpdateNote from "./Components/UpdateNote";
 import config from "./config";
+require("dotenv").config();
 
 const Header = styled.h1``;
 const theme = createMuiTheme({
@@ -40,11 +41,13 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    const folderUrl = `${config.API_ENDPOINT}/api/folders`;
-    const notesUrl = `${config.API_ENDPOINT}/api/notes`;
+    console.log(config);
+    console.log(process.env);
+    const folderUrl = `${config.REACT_APP_API_ENDPOINT}/api/folders`;
+    const notesUrl = `${config.REACT_APP_API_ENDPOINT}/api/notes`;
     fetch(folderUrl, {
       headers: {
-        Authorization: `Bearer ${config.API_KEY}`
+        Authorization: `Bearer ${config.REACT_APP_API_KEY}`
       }
     })
       .then(res => {
@@ -65,7 +68,11 @@ export default class App extends Component {
           error: err.message
         });
       });
-    fetch(notesUrl)
+    fetch(notesUrl, {
+      headers: {
+        Authorization: `Bearer ${config.API_KEY}`
+      }
+    })
       .then(res => {
         if (!res.ok) {
           throw new Error("Something went wrong, please try again later.");

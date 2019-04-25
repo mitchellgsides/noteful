@@ -42,7 +42,7 @@ export default class App extends Component {
 
   componentDidMount() {
     console.log(config);
-    console.log(process.env);
+    console.log(process.env.REACT_APP_API_KEY);
     const folderUrl = `${config.REACT_APP_API_ENDPOINT}/api/folders`;
     const notesUrl = `${config.REACT_APP_API_ENDPOINT}/api/notes`;
     fetch(folderUrl, {

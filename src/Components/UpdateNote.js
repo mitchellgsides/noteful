@@ -32,10 +32,10 @@ class UpdateNote extends Component {
     const { noteID } = this.props.match.params;
     const { note_name, folder_id, content } = this.state;
 
-    fetch(`${config.API_ENDPOINT}/api/notes/${noteID}`, {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/api/notes/${noteID}`, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${config.API_KEY}`,
+        Authorization: `Bearer ${config.REACT_APP_API_KEY}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({

@@ -49,10 +49,10 @@ class AddNote extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { name, folder_id, content } = this.state;
-    fetch(`${config.API_ENDPOINT}/api/notes`, {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/api/notes`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${config.API_KEY}`,
+        Authorization: `Bearer ${config.REACT_APP_API_KEY}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({

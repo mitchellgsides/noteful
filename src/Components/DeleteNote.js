@@ -4,10 +4,10 @@ import NotefulContext from "./NotefulContext";
 import config from "../config";
 
 function deleteNoteRequest(noteId, callback, redirect) {
-  fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
+  fetch(`${config.REACT_APP_API_ENDPOINT}/api/notes/${noteId}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${config.API_KEY}`
+      Authorization: `Bearer ${config.REACT_APP_API_KEY}`
     }
   })
     .then(res => res)

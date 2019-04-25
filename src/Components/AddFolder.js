@@ -36,10 +36,10 @@ class AddFolder extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { name, id } = this.state;
-    fetch(`${config.API_ENDPOINT}/api/folders`, {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/api/folders`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${config.API_KEY}`,
+        Authorization: `Bearer ${config.REACT_APP_API_KEY}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({

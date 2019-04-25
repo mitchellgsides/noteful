@@ -5,10 +5,10 @@ import config from "../config";
 
 function deleteFolderRequest(folderId, callback, redirect) {
   console.log(folderId, "deleted");
-  fetch(`${config.API_ENDPOINT}/api/folders/${folderId}`, {
+  fetch(`${config.REACT_APP_API_ENDPOINT}/api/folders/${folderId}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${config.API_KEY}`,
+      Authorization: `Bearer ${config.REACT_APP_API_KEY}`,
       "content-type": "application/json"
     }
   })

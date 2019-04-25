@@ -41,8 +41,6 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    console.log(config);
-    console.log(process.env.REACT_APP_API_KEY);
     const folderUrl = `${config.REACT_APP_API_ENDPOINT}/api/folders`;
     const notesUrl = `${config.REACT_APP_API_ENDPOINT}/api/notes`;
     fetch(folderUrl, {
@@ -70,7 +68,7 @@ export default class App extends Component {
       });
     fetch(notesUrl, {
       headers: {
-        Authorization: `Bearer ${config.API_KEY}`
+        Authorization: `Bearer ${config.REACT_APP_API_KEY}`
       }
     })
       .then(res => {

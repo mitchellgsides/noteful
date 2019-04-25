@@ -4,7 +4,7 @@ import NotefulContext from "./NotefulContext";
 import config from "../config";
 
 function deleteNoteRequest(noteId, callback, redirect) {
-  fetch(`http://localhost:8000/api/notes/${noteId}`, {
+  fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${config.API_KEY}`

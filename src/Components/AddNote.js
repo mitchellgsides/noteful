@@ -49,7 +49,7 @@ class AddNote extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { name, folder_id, content } = this.state;
-    fetch("http://localhost:8000/api/notes", {
+    fetch(`${config.API_ENDPOINT}/api/notes`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${config.API_KEY}`,

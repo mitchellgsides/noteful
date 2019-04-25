@@ -31,11 +31,8 @@ class UpdateNote extends Component {
     event.preventDefault();
     const { noteID } = this.props.match.params;
     const { note_name, folder_id, content } = this.state;
-    const note = this.context.notes.filter(
-      n => n.id.toString() === this.props.match.params.noteID
-    )[0];
 
-    fetch(`http://localhost:8000/api/notes/${noteID}`, {
+    fetch(`${config.API_ENDPOINT}/api/notes/${noteID}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${config.API_KEY}`,
@@ -46,7 +43,7 @@ class UpdateNote extends Component {
         folder_id: parseInt(folder_id),
         content: content
       })
-    }).then(window.location.replace(`/folders/${note.folder_id}`));
+    }).then(window.location.replace(`/`));
   }
 
   validateValue(fieldValue, fieldName) {
@@ -112,7 +109,7 @@ class UpdateNote extends Component {
               placeholder="Important"
               name="folder_id"
               id="folder"
-              onChange={this.handleSelect}
+              onChange={this.handleChange("folder_id")}
             >
               <MenuItem>Choose a folder...</MenuItem>
               {this.context.folders.map(f => (
@@ -140,7 +137,11 @@ class UpdateNote extends Component {
           </div>
 
           <div className="registration__button__group">
-            <Button type="reset" className="registration__button">
+            <Button
+              type="reset"
+              className="registration__button"
+              onClick={this.props.history.goBack}
+            >
               Cancel
             </Button>
             <Button

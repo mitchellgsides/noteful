@@ -5,7 +5,7 @@ import config from "../config";
 
 function deleteFolderRequest(folderId, callback, redirect) {
   console.log(folderId, "deleted");
-  fetch(`http://localhost:8000/api/folders/${folderId}`, {
+  fetch(`${config.API_ENDPOINT}/api/folders/${folderId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${config.API_KEY}`,
